@@ -1,0 +1,35 @@
+.app-wrapper {
+  width: 60%;
+  height: 80%;
+  background-color: var(--app-color);
+  border-radius: 20px;
+}
+
+@media (max-width: 500px) {
+  .app-wrapper {
+    width: 80%;
+  }
+}
+
+.app-inner {
+  font-size: 1rem;
+  padding: 10px 20px;
+}
+
+.input-wrapper {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tasks-todo__item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tasks-todo__buttons {
+  display: flex;
+  gap: 10px;
+}

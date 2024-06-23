@@ -1,0 +1,53 @@
+:root {
+  --background-color: #5a877d;
+  --border-color: #434343;
+  --app-color: #ededed;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-color: var(--background-color);
+  font-family: 'Inter', sans-serif;
+  color: var(--border-color);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h1 {
+  margin-bottom: 10px;
+  font-size: 3em;
+}
+
+input {
+  border: none;
+  font-size: 1.7em;
+  width: 50%;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+svg {
+  cursor: pointer;
+}
+
+ul {
+  font-size: 1.7em;
+  background-color: white;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+li {
+  list-style: none;
+  margin-bottom: 10px;
+}
+
+li:last-child {
+  margin-bottom: 0;
+}
