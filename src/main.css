@@ -13,7 +13,6 @@ body {
   font-family: 'Inter', sans-serif;
   color: var(--border-color);
   width: 100vw;
-  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,7 +28,7 @@ input {
   font-size: 1.7em;
   width: 50%;
   border-radius: 5px;
-  padding: 10px;
+  padding: 5px;
 }
 
 svg {
@@ -37,17 +36,24 @@ svg {
 }
 
 ul {
-  font-size: 1.7em;
+  font-size: 2em;
+  font-weight: 600;
   background-color: white;
   border-radius: 5px;
   padding: 20px;
 }
 
 li {
+  font-size: 2rem;
+  font-weight: 400;
   list-style: none;
-  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 li:last-child {
   margin-bottom: 0;
+}
+
+button {
+  cursor: pointer;
 }

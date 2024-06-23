@@ -1,63 +1,97 @@
 import { createElement, createSvgElement } from '../utils/elements';
 import { plus, check, remove } from '../utils/svg';
+import { generateRandomString, taskCreate } from '../utils/utils';
 import './app.css';
 
 export function createApp() {
   const appWrapper = createElement({ tagName: 'div', classNames: ['app-wrapper'] });
   const appInner = createElement({ tagName: 'div', classNames: ['app-inner'] });
-  const heading = createElement({ tagName: 'h1', textContent: 'Things To Do' });
+  const heading = createElement({ tagName: 'h1', textContent: 'ToDo List App' });
   const inputSection = createElement({ tagName: 'div', classNames: ['input-wrapper'] });
-  const input = createElement({ tagName: 'input', attributes: { placeholder: 'Add a new task' } });
-  const addButton = createSvgElement(plus, ['app-button'], {
-    width: '40',
-    height: '40',
+  const input = createElement({
+    tagName: 'input',
+    attributes: { placeholder: 'Create a new task' }
+  });
+  const addButtonSVG = createSvgElement(plus, ['svg'], {
+    width: '30',
+    height: '30',
     viewBox: '0 0 448 512'
   });
+  const addButton = createElement({ tagName: 'button', classNames: ['app-button', 'add-button'] });
+  addButton.append(addButtonSVG);
   inputSection.append(input, addButton);
 
-  const todoTasks = addNewTask(addButton, input);
+  const todoTasks = createElement({
+    tagName: 'ul',
+    classNames: ['tasks-todo'],
+    textContent: 'Tasks To Do'
+  });
+  const doneTasks = createElement({
+    tagName: 'ul',
+    classNames: ['tasks-done'],
+    textContent: 'Tasks Done'
+  });
 
-  appInner.append(heading, inputSection, todoTasks);
+  const tasksSection = createElement({ tagName: 'section', classNames: ['tasks-wrapper'] });
+  tasksSection.append(todoTasks, doneTasks);
+
+  appInner.append(heading, inputSection, tasksSection);
   appWrapper.append(appInner);
 
-  // taskHandler(todoTasks);
+  addNewTask(todoTasks, addButton, input);
+  taskHandler(todoTasks, doneTasks);
   return appWrapper;
 }
 
-const addNewTask = (addButton: SVGSVGElement, input: HTMLInputElement) => {
-  const todoTasks = createElement({ tagName: 'ul', classNames: ['tasks-todo'] });
+const addNewTask = (
+  todoTasks: HTMLUListElement,
+  addButton: HTMLButtonElement,
+  input: HTMLInputElement
+) => {
   addButton.addEventListener('click', () => {
+    const id = generateRandomString(5);
+    const content = input.value;
     if (input.value === '') {
       return;
     }
-    const task = createElement({ tagName: 'li', classNames: ['tasks-todo__item'] });
-    const buttonsWrapper = createElement({ tagName: 'div', classNames: ['tasks-todo__buttons'] });
-    const checkButton = createSvgElement(check, ['app-button', 'check-button'], {
-      width: '25',
-      height: '25',
-      viewBox: '0 0 448 512'
-    });
-    const deleteButton = createSvgElement(remove, ['app-button', 'delete-button'], {
-      width: '20',
-      height: '20',
-      viewBox: '0 0 448 512'
-    });
-    const text = createElement({ tagName: 'span', textContent: `${input.value}` });
-    buttonsWrapper.append(checkButton, deleteButton);
-    task.append(text, buttonsWrapper);
+    const task = taskCreate(id, content, remove, check);
     todoTasks.append(task);
     input.value = '';
   });
-  return todoTasks;
 };
 
-// const taskHandler = (todoTasks: HTMLUListElement) => {
-//   todoTasks.addEventListener('click', (event) => {
-//     const target = <SVGSVGElement>event.target;
-//     if (target.classList.contains('check-button')) {
-//       moveTasksToDone();
-//     } else {
+const taskHandler = (todoTasks: HTMLUListElement, doneTasks: HTMLUListElement) => {
+  todoTasks.addEventListener('click', (event) => {
+    const target = <HTMLButtonElement>event.target;
+    const tasks = todoTasks.querySelectorAll<HTMLLIElement>('.tasks-item');
+    const currentTask = <HTMLLIElement>findTask(target, tasks);
+    if (target.classList.contains('delete-button')) {
+      currentTask.remove();
+    }
+    if (target.classList.contains('check-button')) {
+      addTaskToDoneSection(doneTasks, currentTask);
+    }
+  });
+};
 
-//     }
-//   });
-// };
+const addTaskToDoneSection = (doneTasks: HTMLUListElement, currentTask: HTMLLIElement) => {
+  const content = <string>currentTask.textContent;
+  const id = <string>currentTask.getAttribute('data-id');
+  const task = taskCreate(id, content, remove);
+  doneTasks.append(task);
+  currentTask.remove();
+  doneTasks.addEventListener('click', (event) => {
+    const target = <HTMLButtonElement>event.target;
+    const tasks = doneTasks.querySelectorAll<HTMLLIElement>('.tasks-item');
+    const currentTask = <HTMLLIElement>findTask(target, tasks);
+    if (target.classList.contains('delete-button')) {
+      currentTask.remove();
+    }
+  });
+};
+
+const findTask = (target: HTMLButtonElement, tasks: NodeListOf<HTMLLIElement>) => {
+  const id = <string>target.getAttribute('data-id');
+  const currentTask = Array.from(tasks).find((task) => task.getAttribute('data-id') === id);
+  return <HTMLLIElement>currentTask;
+};

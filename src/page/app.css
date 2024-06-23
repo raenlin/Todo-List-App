@@ -21,15 +21,34 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.tasks-item {
+  display: flex;
+  justify-content: space-between;
   border-bottom: 1px solid var(--border-color);
 }
 
-.tasks-todo__item {
-  display: flex;
-  justify-content: space-between;
-}
-
-.tasks-todo__buttons {
+.tasks-buttons {
   display: flex;
   gap: 10px;
+}
+
+.app-button {
+  border: none;
+  background-color: transparent;
+}
+
+.add-button {
+  display: flex;
+  align-items: center;
+}
+
+.app-button .svg {
+  pointer-events: none;
+}
+
+.tasks-done .tasks-item {
+  text-decoration: line-through;
 }
