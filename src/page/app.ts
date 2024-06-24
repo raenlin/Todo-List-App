@@ -13,8 +13,6 @@ export function createApp() {
     attributes: { placeholder: 'Create a new task' }
   });
   const addButtonSVG = createSvgElement(plus, ['svg'], {
-    width: '30',
-    height: '30',
     viewBox: '0 0 448 512'
   });
   const addButton = createElement({ tagName: 'button', classNames: ['app-button', 'add-button'] });

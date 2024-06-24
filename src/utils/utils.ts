@@ -16,8 +16,6 @@ export function taskCreate(id: string, content: string, remove?: string, check?:
   const buttonsWrapper = createElement({ tagName: 'div', classNames: ['tasks-buttons'] });
   if (check) {
     const checkButtonSVG = createSvgElement(check, ['svg'], {
-      width: '25',
-      height: '25',
       viewBox: '0 0 448 512'
     });
     const checkButton = createElement({
@@ -30,8 +28,6 @@ export function taskCreate(id: string, content: string, remove?: string, check?:
   }
   if (remove) {
     const deleteButtonSVG = createSvgElement(remove, ['svg'], {
-      width: '20',
-      height: '20',
       viewBox: '0 0 448 512'
     });
     const deleteButton = createElement({

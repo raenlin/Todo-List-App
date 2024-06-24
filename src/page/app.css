@@ -5,7 +5,7 @@
   border-radius: 20px;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 768px) {
   .app-wrapper {
     width: 80%;
   }
@@ -43,6 +43,42 @@
 .add-button {
   display: flex;
   align-items: center;
+}
+
+.add-button .svg {
+  width: 30px;
+  height: 30px;
+}
+
+@media (max-width: 768px) {
+  .add-button .svg {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+.check-button .svg {
+  width: 25px;
+  height: 25px;
+}
+
+@media (max-width: 768px) {
+  .check-button .svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.delete-button .svg {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 768px) {
+  .delete-button .svg {
+    width: 15px;
+    height: 15px;
+  }
 }
 
 .app-button .svg {
